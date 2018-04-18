@@ -1,15 +1,14 @@
-ARG uid="1000"
-FROM docker-staging.imio.be/intranet/cache:${uid}
+FROM docker-staging.imio.be/intranet/cache:latest
 RUN mkdir /home/imio/imio-intranet
 COPY *.cfg /home/imio/imio-intranet/
 COPY Makefile /home/imio/imio-intranet/
-COPY *.py /home/imio/imio-intranet/
-COPY scripts /home/imio/imio-intranet/scripts
+COPY *.sh /home/imio/imio-intranet/
+COPY *.txt /home/imio/imio-intranet/
 RUN chown imio:imio -R /home/imio/imio-intranet/
 WORKDIR /home/imio/imio-intranet
 USER imio
-RUN /usr/bin/python bootstrap.py -c prod.cfg &&\
-    make buildout-prod
+RUN ln -fs prod.cfg buildout.cfg &&\
+    ./bootstrap.sh -c prod.cfg
 USER root
 RUN apt-get remove -y gcc python-dev &&\
     apt-get autoremove -y &&\

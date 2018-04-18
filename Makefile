@@ -14,10 +14,13 @@ buildout.cfg:
 	echo projectid=${PROJECTID} >> .env
 
 build: .env
-	docker-compose build
+	docker-compose build --pull # --no-cache
 
 up:
 	docker-compose up
 
 bootstrap:
 	./bootstrap.sh
+
+docker-image:
+	docker build --pull -t docker-staging.imio.be/intranet/imio:latest .
