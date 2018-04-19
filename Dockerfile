@@ -21,3 +21,4 @@ ENV PROJECT_ID imio
 COPY docker-entrypoint.sh /
 EXPOSE 8080
 ENTRYPOINT ["/docker-entrypoint.sh"]
+CMD /home/imio/intranet/bin/instance console

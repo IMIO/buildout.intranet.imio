@@ -11,3 +11,7 @@ USER imio
 RUN ./bootstrap.sh -c dev.cfg
 ENV HOSTNAME_HOST local
 ENV PROJECT_ID intranet-imio
+COPY docker-entrypoint.sh /
+EXPOSE 8080
+ENTRYPOINT ["/docker-entrypoint.sh"]
+CMD /home/imio/intranet/bin/instance fg
