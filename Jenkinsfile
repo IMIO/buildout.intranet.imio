@@ -21,7 +21,7 @@ pipeline {
             steps {
                 pushImageToRegistry (
                     env.buildId,
-                    'docker-staging.imio.be/intranet/imio'
+                    'intranet/imio'
                 )
             }
         }
@@ -33,12 +33,24 @@ pipeline {
                 }
             }
             steps {
-                deployToStaging (
-                    env.buildId,
-                    'intranet/imio',
-                    'role::docker::sites$',
-                    '/srv/docker_scripts/website-update-all-images.sh'
-                )
+                sh "mco shell run 'docker pull docker-staging.imio.be/intranet/imio:${env.buildId}' -I /^staging.imio.be$/"
+            }
+        }
+        stage('Deploy to prod') {
+            agent any
+            when {
+                expression {
+                    currentBuild.result == null || currentBuild.result == 'SUCCESS'
+                }
+            }
+            steps {
+                sh "docker tag docker-staging.imio.be/intranet/imio:${env.buildId} docker-prod.imio.be/intranet/imio:${env.buildId}"
+                sh "docker tag docker-staging.imio.be/intranet/imio:${env.buildId}} docker-prod.imio.be/intranet/imio:${env.buildId}:latest"
+                sh "docker push docker-prod.imio.be/intranet/imio"
+                sh "docker rmi docker-staging.imio.be/intranet/imio:${env.buildId}"
+                sh "docker rmi docker-prod.imio.be/intranet/imio"
+                sh "docker rmi docker-prod.imio.be/intranet/imio:${env.buildId}"
+                sh "mco shell run 'docker pull docker-prod.imio.be/intranet/imio:${env.buildId}' -I /^intranet-imio.imio.be$/"
             }
         }
     }
