@@ -24,4 +24,4 @@ bootstrap:
 
 
 docker-image:
-	docker build --pull -t docker-staging.imio.be/intranet/imio:latest .
+	docker build --no-cache --pull -t docker-staging.imio.be/intranet/imio:latest .
