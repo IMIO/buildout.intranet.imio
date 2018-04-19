@@ -1,11 +1,11 @@
 FROM docker-staging.imio.be/intranet/cache:latest
-RUN mkdir /home/imio/imio-intranet
-COPY *.cfg /home/imio/imio-intranet/
-COPY Makefile /home/imio/imio-intranet/
-COPY *.sh /home/imio/imio-intranet/
-COPY *.txt /home/imio/imio-intranet/
-RUN chown imio:imio -R /home/imio/imio-intranet/
-WORKDIR /home/imio/imio-intranet
+RUN mkdir /home/imio/intranet
+COPY *.cfg /home/imio/intranet/
+COPY Makefile /home/imio/intranet/
+COPY *.sh /home/imio/intranet/
+COPY *.txt /home/imio/intranet/
+RUN chown imio:imio -R /home/imio/intranet/
+WORKDIR /home/imio/intranet
 USER imio
 RUN ln -fs prod.cfg buildout.cfg &&\
     ./bootstrap.sh -c prod.cfg

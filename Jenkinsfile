@@ -20,8 +20,8 @@ pipeline {
             agent any
             steps {
                 pushImageToRegistry (
-                    pipelineParams.buildId,
-                    pipelineParams.imageName
+                    env.buildId,
+                    'docker-staging.imio.be/intranet/imio'
                 )
             }
         }
@@ -34,10 +34,10 @@ pipeline {
             }
             steps {
                 deployToStaging (
-                    pipelineParams.buildId,
-                    pipelineParams.imageName,
-                    pipelineParams.role,
-                    pipelineParams.updateScript
+                    env.buildId,
+                    'intranet/imio'
+                    'role::docker::sites$',
+                     '/srv/docker_scripts/website-update-all-images.sh'
                 )
             }
         }
