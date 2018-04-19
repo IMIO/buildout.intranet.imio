@@ -18,3 +18,6 @@ ENV ZEO_HOST db
 ENV ZEO_PORT 8100
 ENV HOSTNAME_HOST local
 ENV PROJECT_ID imio
+COPY docker-entrypoint.sh /
+EXPOSE 8080
+ENTRYPOINT ["/docker-entrypoint.sh"]

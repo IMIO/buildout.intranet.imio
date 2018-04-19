@@ -1,12 +1,13 @@
+FROM docker-staging.imio.be/intranet/cache:latest
 ARG uid="1000"
-FROM docker-staging.imio.be/intranet/cache:${uid}
-RUN mkdir /home/imio/imio-intranet
-COPY *.cfg /home/imio/imio-intranet/
-COPY *.sh /home/imio/imio-intranet/
-COPY Makefile /home/imio/imio-intranet/
-RUN chown imio:imio -R /home/imio/imio-intranet/
-WORKDIR /home/imio/imio-intranet
+RUN usermod -u ${uid} imio
+RUN mkdir /home/imio/intranet
+COPY *.cfg /home/imio/intranet/
+COPY *.sh /home/imio/intranet/
+COPY Makefile /home/imio/intranet/
+RUN chown imio:imio -R /home/imio/intranet/
+WORKDIR /home/imio/intranet
 USER imio
-RUN ./bootstrap.sh -c prod.cfg
+RUN ./bootstrap.sh -c dev.cfg
 ENV HOSTNAME_HOST local
 ENV PROJECT_ID intranet-imio

@@ -1,8 +1,5 @@
 #!/usr/bin/make
-#
 all: run
-VERSION=`cat version.txt`
-#BUILD_NUMBER := debug1
 UID := $(shell id -u)
 PROJECTID := $(shell basename "${PWD}")
 
@@ -13,7 +10,10 @@ buildout.cfg:
 	echo uid=${UID} > .env
 	echo projectid=${PROJECTID} >> .env
 
-build: .env
+src:
+	mkdir src
+
+build: .env src
 	docker-compose build --pull # --no-cache
 
 up:
@@ -21,6 +21,7 @@ up:
 
 bootstrap:
 	./bootstrap.sh
+
 
 docker-image:
 	docker build --pull -t docker-staging.imio.be/intranet/imio:latest .

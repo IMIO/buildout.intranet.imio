@@ -9,10 +9,10 @@ services:
     user: imio
     ports:
       - "8080:8080"
-    volumes:
-      - ./src:/home/imio/imio-intranet/src
-    working_dir: /home/imio/imio-intranet
+    # volumes:
+    #   - ./src:/home/imio/intranet/src
+    working_dir: /home/imio/intranet
     environment:
       - ENV=dev
       - DOMAINS=localhost
-    command: /home/imio/imio-intranet/bin/instance fg
+    command: /home/imio/intranet/bin/instance fg

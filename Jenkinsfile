@@ -36,6 +36,7 @@ pipeline {
                 sh "docker tag docker-staging.imio.be/intranet/imio:$latest docker-staging.imio.be/intranet/imio:$BUILD_ID"
                 sh "docker push docker-staging.imio.be/intranet/imio"
                 sh "mco shell run 'docker pull docker-staging.imio.be/intranet/imio:$BUILD_ID' -I /^staging.imio.be/"
+                sh "mco shell run 'systemctl restart intranet.service' -I /^staging.imio.be/"
             }
         }
         stage('Deploy to prod') {
@@ -53,6 +54,7 @@ pipeline {
                 sh "docker rmi docker-prod.imio.be/intranet/imio"
                 sh "docker rmi docker-prod.imio.be/intranet/imio:$BUILD_ID"
                 sh "mco shell run 'docker pull docker-prod.imio.be/intranet/imio:$BUILD_ID' -I /^intranet-imio.imio.be/"
+                sh "mco shell run 'systemctl restart intranet.service' -I /^staging.imio.be/"
             }
         }
     }
