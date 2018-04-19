@@ -5,7 +5,7 @@ COPY *.cfg /home/imio/intranet/
 COPY Makefile /home/imio/intranet/
 COPY *.sh /home/imio/intranet/
 COPY *.txt /home/imio/intranet/
-RUN chown imio:imio -R /home/imio/intranet/ && chown imio:imio /docker-entrypoint.sh
+RUN chown imio:imio -R /home/imio/intranet/ && chown imio:imio /docker-entrypoint.sh && chmod +x /docker-entrypoint.sh
 WORKDIR /home/imio/intranet
 USER imio
 RUN ln -fs prod.cfg buildout.cfg &&\
