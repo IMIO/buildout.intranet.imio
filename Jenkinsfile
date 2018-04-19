@@ -33,7 +33,7 @@ pipeline {
                 }
             }
             steps {
-                sh "mco shell run 'docker pull docker-staging.imio.be/intranet/imio:${env.BUILD_ID}' -I /^staging.imio.be$/"
+                sh "mco shell run 'docker pull docker-staging.imio.be/intranet/imio:$BUILD_ID' -I /^staging.imio.be$/"
             }
         }
         stage('Deploy to prod') {
@@ -44,13 +44,13 @@ pipeline {
                 }
             }
             steps {
-                sh "docker tag docker-staging.imio.be/intranet/imio:${env.BUILD_ID} docker-prod.imio.be/intranet/imio:${env.BUILD_ID}"
-                sh "docker tag docker-staging.imio.be/intranet/imio:${env.BUILD_ID}} docker-prod.imio.be/intranet/imio:${env.BUILD_ID}:latest"
+                sh "docker tag docker-staging.imio.be/intranet/imio:$BUILD_ID docker-prod.imio.be/intranet/imio:$BUILD_ID"
+                sh "docker tag docker-staging.imio.be/intranet/imio:$BUILD_ID} docker-prod.imio.be/intranet/imio:$BUILD_ID:latest"
                 sh "docker push docker-prod.imio.be/intranet/imio"
-                sh "docker rmi docker-staging.imio.be/intranet/imio:${env.BUILD_ID}"
+                sh "docker rmi docker-staging.imio.be/intranet/imio:$BUILD_ID"
                 sh "docker rmi docker-prod.imio.be/intranet/imio"
-                sh "docker rmi docker-prod.imio.be/intranet/imio:${env.BUILD_ID}"
-                sh "mco shell run 'docker pull docker-prod.imio.be/intranet/imio:${env.BUILD_ID}' -I /^intranet-imio.imio.be$/"
+                sh "docker rmi docker-prod.imio.be/intranet/imio:$BUILD_ID"
+                sh "mco shell run 'docker pull docker-prod.imio.be/intranet/imio:$BUILD_ID' -I /^intranet-imio.imio.be$/"
             }
         }
     }
