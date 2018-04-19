@@ -35,9 +35,9 @@ pipeline {
             steps {
                 deployToStaging (
                     env.buildId,
-                    'intranet/imio'
+                    'intranet/imio',
                     'role::docker::sites$',
-                     '/srv/docker_scripts/website-update-all-images.sh'
+                    '/srv/docker_scripts/website-update-all-images.sh'
                 )
             }
         }
