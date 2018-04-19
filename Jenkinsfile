@@ -33,6 +33,8 @@ pipeline {
                 }
             }
             steps {
+                sh "docker tag docker-staging.imio.be/intranet/imio:$latest docker-staging.imio.be/intranet/imio:$BUILD_ID"
+                sh "docker push docker-staging.imio.be/intranet/imio"
                 sh "mco shell run 'docker pull docker-staging.imio.be/intranet/imio:$BUILD_ID' -I /^staging.imio.be/"
             }
         }
