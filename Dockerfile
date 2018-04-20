@@ -1,4 +1,5 @@
 FROM docker-staging.imio.be/intranet/cache:latest
+RUN pip install --upgrade pip
 RUN mkdir /home/imio/intranet
 COPY docker-entrypoint.sh /
 COPY *.cfg /home/imio/intranet/

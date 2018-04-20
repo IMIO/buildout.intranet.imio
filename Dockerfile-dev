@@ -1,5 +1,6 @@
 FROM docker-staging.imio.be/intranet/cache:latest
 ARG uid="1000"
+RUN pip install --upgrade pip
 RUN usermod -u ${uid} imio
 RUN mkdir /home/imio/intranet
 COPY docker-entrypoint.sh /
