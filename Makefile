@@ -3,7 +3,7 @@ all: run
 UID := $(shell id -u)
 PROJECTID := $(shell basename "${PWD}")
 
-buildout.cfg:
+buildoutcfg:
 	ln -fs dev.cfg buildout.cfg
 
 .env:
@@ -14,14 +14,22 @@ src:
 	mkdir src
 
 build: .env src
-	docker-compose build --pull # --no-cache
+	rm -rf parts
+	docker-compose build --pull # <--no-cache
+	# fullfil src folder
+	# check if src folder is empty
+	docker-compose run --rm instance ./bootstrap.sh -c dev.cfg
+	# docker-compose run --rm instance /home/imio/intranet/bin/develop up
 
 up:
-	docker-compose up
+	docker-compose run --rm --service-ports instance fg
 
-bootstrap:
+bootstrap: buildoutcfg
 	./bootstrap.sh
-
 
 docker-image:
 	docker build --no-cache --pull -t docker-staging.imio.be/intranet/imio:latest .
+
+clean:
+	docker-compose down
+	rm -fr develop-eggs downloads eggs parts .installed.cfg lib include bin .mr.developer.cfg

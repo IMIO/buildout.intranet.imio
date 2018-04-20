@@ -1,18 +1,10 @@
 FROM docker-staging.imio.be/intranet/cache:latest
 ARG uid="1000"
-RUN pip install --upgrade pip
 RUN usermod -u ${uid} imio
 RUN mkdir /home/imio/intranet
 COPY docker-entrypoint.sh /
-COPY *.cfg /home/imio/intranet/
-COPY *.sh /home/imio/intranet/
-COPY Makefile /home/imio/intranet/
-RUN chown imio:imio -R /home/imio/intranet/ && chown imio:imio /docker-entrypoint.sh && chmod +x /docker-entrypoint.sh
+RUN chmod +x /docker-entrypoint.sh
+RUN chown imio:imio /docker-entrypoint.sh
+RUN chown imio:imio -R /home/imio/intranet
 WORKDIR /home/imio/intranet
-USER imio
-RUN ./bootstrap.sh -c dev.cfg
-ENV HOSTNAME_HOST local
-ENV PROJECT_ID intranet-imio
-EXPOSE 8080
 ENTRYPOINT ["/docker-entrypoint.sh"]
-CMD /home/imio/intranet/bin/instance fg
