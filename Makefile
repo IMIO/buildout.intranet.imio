@@ -24,6 +24,9 @@ build: .env src
 up:
 	docker-compose run --rm --service-ports instance fg
 
+bash:
+	docker-compose run --rm --service-ports instance bash
+
 bootstrap: buildoutcfg
 	./bootstrap.sh
 
