@@ -14,11 +14,11 @@ https://docs.docker.com/install/linux/docker-ce/ubuntu/
 docker-compose:
 https://docs.docker.com/compose/install/
 
-check if your user is in docker group, use command:
+check if your user is in docker group, use command::
 
     $ groups
 
-if docker is in list, you can skip this:
+if docker is in list, you can skip this::
 
     $ sudo usermod -aG docker $USER
 
@@ -27,11 +27,11 @@ And after, restart your session
 
 Dev
 ---
-After docker(-compose) installation, you can start developing with cloning repo:
+After docker(-compose) installation, you can start developing with cloning repo::
 
     git clone git@github.com:IMIO/buildout.intranet.imio.git && cd buildout.intranet.imio
 
-Now you can build image, and start instance:
+Now you can build image, and start instance::
 
     make build
 
@@ -43,7 +43,7 @@ Now you can build image, and start instance:
 
 Get data from prod
 ------------------
-If you would like to get data from prod, start this command:
+If you would like to get data from prod, start this command::
 
     $ ./rsync.sh
 
