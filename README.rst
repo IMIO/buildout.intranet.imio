@@ -29,13 +29,12 @@ Dev
 ---
 After docker(-compose) installation, you can start developing with cloning repo::
 
-    git clone git@github.com:IMIO/buildout.intranet.imio.git && cd buildout.intranet.imio
+    $ git clone git@github.com:IMIO/buildout.intranet.imio.git && cd buildout.intranet.imio
 
 Now you can build image, and start instance::
 
-    make build
-
-    make up
+    $ make build
+    $ make up
 
 `make build` is going to build image with buildout.
 `make up` will start instance.
