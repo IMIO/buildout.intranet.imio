@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('Build image') {
             steps {
-                sh 'make intranet-build-cache'
+                sh 'make docker-cache-image'
             }
         }
     }
