@@ -10,7 +10,7 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      - .:/home/imio/intranet
+      - ./src:/home/imio/intranet/src
     environment:
       - ENV=dev
       - DOMAINS=localhost
