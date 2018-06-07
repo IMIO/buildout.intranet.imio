@@ -1,10 +1,15 @@
 FROM docker-staging.imio.be/intranet/cache:latest
 ARG uid="1000"
+ARG group_id=1000
 RUN usermod -u ${uid} imio
+#RUN rm -rf /home/imio/.local && rm -rf /home/imio/.cache && usermod -u $user_id imio && groupmod -g $group_id -o imio && chown -R $user_id:$group_id /home/imio
 RUN mkdir /home/imio/intranet
 COPY docker-entrypoint.sh /
+COPY *.cfg *.txt /home/imio/intranet/
 RUN chmod +x /docker-entrypoint.sh
 RUN chown imio:imio /docker-entrypoint.sh
 RUN chown imio:imio -R /home/imio/intranet
 WORKDIR /home/imio/intranet
+USER imio
+RUN ln -fs dev.cfg buildout.cfg && virtualenv -p python2.7 . && bin/pip install -I -r requirements.txt && bin/buildout -c dev.cfg
 ENTRYPOINT ["/docker-entrypoint.sh"]
