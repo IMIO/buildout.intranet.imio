@@ -18,7 +18,11 @@ build: .env src
 	docker-compose build --pull # <--no-cache
 	# fullfil src folder
 	# check if src folder is empty
-	docker-compose run --rm instance ./bootstrap.sh -c dev.cfg
+	make buildout
+
+buildout:
+	docker-compose run --rm instance bin/buildout
+	# docker-compose run --rm instance bin/develop checkout .
 	# docker-compose run --rm instance /home/imio/intranet/bin/develop up
 
 up:
@@ -35,4 +39,4 @@ docker-image:
 
 clean:
 	docker-compose down
-	rm -fr develop-eggs downloads eggs parts .installed.cfg lib include bin .mr.developer.cfg
+	rm -fr develop-eggs downloads eggs parts .installed.cfg lib include bin .mr.developer.cfg local/ share/
